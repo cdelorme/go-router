@@ -86,6 +86,7 @@ _In this case the address is not optional._
 - remove Start() from the router (that logic doesn't really belong there)
 - make the ignoreList a manageable property (to add and remove from)
 - remove prefix from controller registration (not a reliable dependency, adds more unnecessary complexity)
+- make a trailing `/` optional in routes (support for some queer specs in certain frontend tools)
 
 
 # references
