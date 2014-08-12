@@ -76,6 +76,14 @@ Finally, if you don't want to create a router and just want to spinup a new serv
 _In this case the address is not optional._
 
 
+## planned features
+
+- allow registration of 404 handler
+- remove Start() from the router (that logic doesn't really belong there)
+- make the ignoreList a manageable property (to add and remove from)
+- remove prefix from controller registration (not a reliable dependency, adds more unnecessary complexity)
+
+
 # references
 
 - [A good review article](http://corner.squareup.com/2014/05/evaluating-go-frameworks.html)
