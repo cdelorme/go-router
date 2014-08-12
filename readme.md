@@ -40,28 +40,32 @@ By default my library will ignore requests for `favicon`.  _My router has one ex
 
 You can import my router with:
 
-    import "github.com/cdelorme/go-router"
+    import (
+        "github.com/cdelorme/go-logger"
+        "github.com/cdelorme/go-routing"
+    )
 
 You can create a route like this (it depends on my logger):
 
-    aRouter := router.Router{Log: logger}
+    logger := log.Logger{}
+    router := routing.Router{Log: &log}
 
 You can register single routes like this:
 
-    aRouter.CreateAndRegisterRoute("path/", callbackOne, "GET")
-    aRouter.CreateAndRegisterRoute("path2/", callbackTwo, "GET", "POST", "PUT")
+    router.CreateAndRegisterRoute("/path/", callbackOne, "GET")
+    router.CreateAndRegisterRoute("/path2/", callbackTwo, "GET", "POST", "PUT")
 
 _The callbacks can be part of another struct or stand-alone, and it must accept `http.ResponseWriter` and `http.Request` parameters._
 
 You can register a compatible controller like this:
 
-    aRouter.RegisterController(controller, "prefix/")
+    router.RegisterController(controller, "prefix/")
 
 _Your controller would be responsible for appending the prefix, which will be passed alongside the `CreateAndRegisterRoute` method, which can then be run from the controller._
 
 You can apply my router to an existing server like this:
 
-    server.Handler = aRouter
+    server.Handler = router
 
 Alternatively, my router can attach itself and start the server for you like this:
 
