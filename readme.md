@@ -38,14 +38,14 @@ By default my library will ignore requests for `favicon`.  _My router has one ex
 
 ## usage
 
-You can import my router with:
+You can import my router (and its dependency) like this:
 
     import (
         "github.com/cdelorme/go-log"
         "github.com/cdelorme/go-routing"
     )
 
-You can create a route like this (it depends on my logger):
+You can create a router (with its dependency) like this:
 
     logger := log.Logger{}
     router := routing.Router{Log: &log}
