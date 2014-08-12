@@ -41,7 +41,7 @@ By default my library will ignore requests for `favicon`.  _My router has one ex
 You can import my router with:
 
     import (
-        "github.com/cdelorme/go-logger"
+        "github.com/cdelorme/go-log"
         "github.com/cdelorme/go-routing"
     )
 
