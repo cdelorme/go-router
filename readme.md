@@ -67,23 +67,18 @@ You can apply my router to an existing server like this:
 
     server.Handler = router
 
-Alternatively, my router can attach itself and start the server for you like this:
+Or in more detail, like this:
 
-    router.Start(&server, "address:port")
-
-_When you supply a server the address can be an empty string._
-
-Finally, if you don't want to create a router and just want to spinup a new server from my router you can:
-
-    router.Start(nil, "address:port")
-
-_In this case the address is not optional._
+    server := http.Server{
+        Addr:           Address,
+        MaxHeaderBytes: 1 << 20,
+        Handler:        router,
+    }
 
 
 ## planned features
 
 - allow registration of 404 handler
-- remove Start() from the router (that logic doesn't really belong there)
 - make the ignoreList a manageable property (to add and remove from)
 - remove prefix from controller registration (not a reliable dependency, adds more unnecessary complexity)
 - make a trailing `/` optional in routes (support for some queer specs in certain frontend tools)

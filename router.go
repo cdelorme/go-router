@@ -78,22 +78,3 @@ func (router *Router) RegisterController(controller Controller, prefix string) {
 	}
 	controller.RegisterWithRouter(prefix, router.CreateAndRegisterRoute)
 }
-
-func (router *Router) Start(server *http.Server, serverAddress string) {
-	if server == nil {
-		if serverAddress == "" {
-			router.Log.Error("No address and port provided to serve content on")
-			return
-		}
-		server = &http.Server{}
-	}
-	server.Handler = router
-	if serverAddress != "" {
-		server.Addr = serverAddress
-	}
-	server.MaxHeaderBytes = 1 << 20
-	err := server.ListenAndServe()
-	if err != nil {
-		router.Log.Error("Encountered an error setting up the server: %s", err.Error())
-	}
-}
