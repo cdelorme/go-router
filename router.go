@@ -20,7 +20,7 @@ func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 	}
 
 	for _, at := range router.Routes {
-		if at.URI == request.URL.String() {
+		if at.URI == request.URL.String() || at.URI+"/" == request.URL.String() {
 			for _, method := range at.RequestMethods {
 				if method == request.Method {
 					at.Callback(writer, request)

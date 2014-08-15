@@ -50,10 +50,10 @@ You can create a router (with its dependency) like this:
 
 You can register single routes like this:
 
-    router.CreateAndRegisterRoute("/path/", callbackOne, "GET")
-    router.CreateAndRegisterRoute("/path2/", callbackTwo, "GET", "POST", "PUT")
+    router.CreateAndRegisterRoute("/path", callbackOne, "GET")
+    router.CreateAndRegisterRoute("/path2", callbackTwo, "GET", "POST", "PUT")
 
-_The callbacks can be part of another struct or stand-alone, and it must accept `http.ResponseWriter` and `http.Request` parameters._
+_Callbacks can be stand-alone functions or part of a struct, both work provided they accept the right parameters.  Routes without a trailing slash will work with and without; this is to support various frontend services and browser specs.  If you do not want to support two paths, add the trailing slash to the route._
 
 You can register a compatible controller like this:
 
@@ -76,7 +76,6 @@ Or in more detail, like this:
 
 ## planned features
 
-- add support for _optional_ trailing `/` in routes (for queer specs of certain frontend libraries)
 - allow registration of 404 handler
 
 
