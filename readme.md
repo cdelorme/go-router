@@ -33,7 +33,7 @@ My router aims for simplicity while remaining completely modular.  It features t
 
 You can use my router to register routes and start up a server, but won't need to reference it from controllers or other sections of code, keeping it as opaque as possible.
 
-By default my library will ignore requests for `favicon`.  _My router has one external dependency; my logger package._
+By default my library will ignore requests for `favicon`.
 
 
 ## usage
@@ -41,14 +41,12 @@ By default my library will ignore requests for `favicon`.  _My router has one ex
 You can import my router (and its dependency) like this:
 
     import (
-        "github.com/cdelorme/go-log"
         "github.com/cdelorme/go-routing"
     )
 
 You can create a router (with its dependency) like this:
 
-    logger := log.Logger{}
-    router := routing.Router{Log: &log}
+    router := routing.Router{}
 
 You can register single routes like this:
 
@@ -78,7 +76,6 @@ Or in more detail, like this:
 
 ## planned features
 
-- remove log dependency
 - add support for _optional_ trailing `/` in routes (for queer specs of certain frontend libraries)
 - allow registration of 404 handler
 - make the ignoreList a manageable property (to add and remove from)
