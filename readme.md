@@ -59,7 +59,7 @@ _The callbacks can be part of another struct or stand-alone, and it must accept 
 
 You can register a compatible controller like this:
 
-    router.RegisterController(controller, "prefix/")
+    router.RegisterController(controller)
 
 _Your controller would be responsible for appending the prefix, which will be passed alongside the `CreateAndRegisterRoute` method, which can then be run from the controller._
 
@@ -78,10 +78,10 @@ Or in more detail, like this:
 
 ## planned features
 
+- remove log dependency
+- add support for _optional_ trailing `/` in routes (for queer specs of certain frontend libraries)
 - allow registration of 404 handler
 - make the ignoreList a manageable property (to add and remove from)
-- remove prefix from controller registration (not a reliable dependency, adds more unnecessary complexity)
-- make a trailing `/` optional in routes (support for some queer specs in certain frontend tools)
 
 
 # references
