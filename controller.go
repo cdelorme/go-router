@@ -4,7 +4,6 @@ import "net/http"
 
 type Controller interface {
 	RegisterWithRouter(
-		prefix string,
 		addRoute func(
 			uri string,
 			callback func(

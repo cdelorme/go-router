@@ -71,10 +71,10 @@ func (router *Router) CreateAndRegisterRoute(
 	router.RegisterRoute(route)
 }
 
-func (router *Router) RegisterController(controller Controller, prefix string) {
+func (router *Router) RegisterController(controller Controller) {
 	if controller == nil {
 		router.Log.Error("No controller supplied to registering with router")
 		return
 	}
-	controller.RegisterWithRouter(prefix, router.CreateAndRegisterRoute)
+	controller.RegisterWithRouter(router.CreateAndRegisterRoute)
 }
