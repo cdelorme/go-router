@@ -55,6 +55,10 @@ You can register single routes like this:
 
 _Callbacks can be stand-alone functions or part of a struct, both work provided they accept the right parameters.  Routes without a trailing slash will work with and without; this is to support various frontend services and browser specs.  If you do not want to support two paths, add the trailing slash to the route._
 
+You can also register a custom 404 (NotFound) handler, like this:
+
+    router.HandleNotFound = My404Handler
+
 You can register a compatible controller like this:
 
     router.RegisterController(controller)
@@ -72,11 +76,6 @@ Or in more detail, like this:
         MaxHeaderBytes: 1 << 20,
         Handler:        router,
     }
-
-
-## planned features
-
-- allow registration of 404 handler
 
 
 # references

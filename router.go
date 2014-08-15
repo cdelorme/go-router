@@ -7,16 +7,15 @@ import (
 )
 
 type Router struct {
-	Routes     []Route
-	IgnoreList []string
+	Routes         []Route
+	IgnoreList     []string
+	HandleNotFound func(writer http.ResponseWriter, request *http.Request)
 }
 
 func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 
-	for _, ignore := range router.IgnoreList {
-		if ignore == request.URL.String() {
-			return
-		}
+	if router.Ignored() {
+		return
 	}
 
 	for _, at := range router.Routes {
@@ -30,16 +29,31 @@ func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 		}
 	}
 
-	// add 404 handler to replace this logic
-	// router.Log.Debug("No callback registered for: %s", request.URL.String())
-	message := struct{ Error string }{Error: "No resources available at " + request.URL.String() + " using request method " + request.Method}
-	jsonMessage, _ := json.Marshal(message)
-	writer.Header().Add("Content-Type", "application/json")
-	writer.Write(jsonMessage)
+	router.NotFound(writer, request)
 }
 
 func (router *Router) Ignore(uri string) {
 	router.IgnoreList = append(router.IgnoreList, uri)
+}
+
+func (router *Router) Ignored(uri string) bool {
+	for _, ignore := range router.IgnoreList {
+		if ignore == uri {
+			return true
+		}
+	}
+	return false
+}
+
+func (router *Router) NotFound(writer http.ResponseWriter, request *http.Request) {
+	if router.HandleNotFound != nil {
+		router.HandleNotFound(writer, request)
+		return
+	}
+	message := struct{ Error string }{Error: "No resources available at " + request.URL.String() + " using request method " + request.Method}
+	jsonMessage, _ := json.Marshal(message)
+	writer.Header().Add("Content-Type", "application/json")
+	writer.Write(jsonMessage)
 }
 
 func (router *Router) RegisterRoute(routes ...Route) error {
