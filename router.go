@@ -4,12 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-
-	"github.com/cdelorme/go-log"
 )
 
 type Router struct {
-	Log    *log.Logger
 	Routes []Route
 }
 
@@ -34,19 +31,20 @@ func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 		}
 	}
 
-	router.Log.Debug("No callback registered for: %s", request.URL.String())
+	// add 404 handler to replace this logic
+	// router.Log.Debug("No callback registered for: %s", request.URL.String())
 	message := struct{ Error string }{Error: "No resources available at " + request.URL.String() + " using request method " + request.Method}
 	jsonMessage, _ := json.Marshal(message)
 	writer.Header().Add("Content-Type", "application/json")
 	writer.Write(jsonMessage)
 }
 
-func (router *Router) RegisterRoute(routes ...Route) {
+func (router *Router) RegisterRoute(routes ...Route) error {
 	if len(routes) == 0 {
-		router.Log.Error("No routes provided")
-		return
+		return errors.New("No routes provided")
 	}
 	router.Routes = append(router.Routes, routes...)
+	return nil
 }
 
 func (router *Router) CreateRoute(
@@ -62,19 +60,19 @@ func (router *Router) CreateRoute(
 func (router *Router) CreateAndRegisterRoute(
 	uri string,
 	callback func(writer http.ResponseWriter, request *http.Request),
-	methods ...string) {
+	methods ...string) error {
 	route, err := router.CreateRoute(uri, callback, methods...)
 	if err != nil {
-		router.Log.Error("%s", err)
-		return
+		return err
 	}
 	router.RegisterRoute(route)
+	return nil
 }
 
-func (router *Router) RegisterController(controller Controller) {
+func (router *Router) RegisterController(controller Controller) error {
 	if controller == nil {
-		router.Log.Error("No controller supplied to registering with router")
-		return
+		return errors.New("No controller supplied to registering with router")
 	}
 	controller.RegisterWithRouter(router.CreateAndRegisterRoute)
+	return nil
 }

@@ -1,6 +1,8 @@
 package routing
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type Controller interface {
 	RegisterWithRouter(
@@ -9,5 +11,5 @@ type Controller interface {
 			callback func(
 				writer http.ResponseWriter,
 				request *http.Request),
-			methods ...string))
+			methods ...string) error)
 }
