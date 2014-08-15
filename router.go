@@ -50,29 +50,21 @@ func (router *Router) RegisterRoute(routes ...Route) error {
 func (router *Router) CreateRoute(
 	uri string,
 	callback func(writer http.ResponseWriter, request *http.Request),
-	methods ...string) (Route, error) {
+	methods ...string) Route {
 	if len(methods) == 0 {
-		return Route{}, errors.New("No request method supplied")
+		methods = []string{"GET"}
 	}
-	return Route{URI: uri, Callback: callback, RequestMethods: methods}, nil
+	return Route{URI: uri, Callback: callback, RequestMethods: methods}
 }
 
 func (router *Router) CreateAndRegisterRoute(
 	uri string,
 	callback func(writer http.ResponseWriter, request *http.Request),
-	methods ...string) error {
-	route, err := router.CreateRoute(uri, callback, methods...)
-	if err != nil {
-		return err
-	}
+	methods ...string) {
+	route := router.CreateRoute(uri, callback, methods...)
 	router.RegisterRoute(route)
-	return nil
 }
 
-func (router *Router) RegisterController(controller Controller) error {
-	if controller == nil {
-		return errors.New("No controller supplied to registering with router")
-	}
+func (router *Router) RegisterController(controller Controller) {
 	controller.RegisterWithRouter(router.CreateAndRegisterRoute)
-	return nil
 }

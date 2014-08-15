@@ -11,5 +11,5 @@ type Controller interface {
 			callback func(
 				writer http.ResponseWriter,
 				request *http.Request),
-			methods ...string) error)
+			methods ...string))
 }
