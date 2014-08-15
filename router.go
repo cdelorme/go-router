@@ -7,14 +7,13 @@ import (
 )
 
 type Router struct {
-	Routes []Route
+	Routes     []Route
+	IgnoreList []string
 }
-
-var ignoreList = []string{"/favicon.ico"}
 
 func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 
-	for _, ignore := range ignoreList {
+	for _, ignore := range router.IgnoreList {
 		if ignore == request.URL.String() {
 			return
 		}
@@ -37,6 +36,10 @@ func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 	jsonMessage, _ := json.Marshal(message)
 	writer.Header().Add("Content-Type", "application/json")
 	writer.Write(jsonMessage)
+}
+
+func (router *Router) Ignore(uri string) {
+	router.IgnoreList = append(router.IgnoreList, uri)
 }
 
 func (router *Router) RegisterRoute(routes ...Route) error {

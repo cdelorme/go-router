@@ -78,7 +78,6 @@ Or in more detail, like this:
 
 - add support for _optional_ trailing `/` in routes (for queer specs of certain frontend libraries)
 - allow registration of 404 handler
-- make the ignoreList a manageable property (to add and remove from)
 
 
 # references
