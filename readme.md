@@ -30,10 +30,10 @@ My router aims for simplicity while remaining completely modular.  It features t
 - controller registration with standard-type compatible callbacks
 - implements http.Handler interface (ServeHTTP) and can be applied directly to a server
 - accepts a server by-reference or makes one on demand
+- customizable 404 (not found) error handler
+- an ignore list for routes such as `/favicon.ico`
 
-You can use my router to register routes and start up a server, but won't need to reference it from controllers or other sections of code, keeping it as opaque as possible.
-
-By default my library will ignore requests for `favicon`.
+My router acts as an abstraction for registering many routes under a single `http.Handler` that can be assigned to an `http.Server`; without adding any references from the controllers to my library you can register all of your routes, keeping things as opaque as possible.
 
 
 ## usage
