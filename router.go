@@ -14,7 +14,7 @@ type Router struct {
 
 func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 
-	if router.Ignored() {
+	if router.Ignored(request.URL.String()) || router.Ignored(request.URL.String() + "/") {
 		return
 	}
 
