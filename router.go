@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strings"
 )
 
 type Router struct {
@@ -14,12 +15,12 @@ type Router struct {
 
 func (router *Router) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 
-	if router.Ignored(request.URL.String()) || router.Ignored(request.URL.String() + "/") {
+	if router.Ignored(request.URL.String()) {
 		return
 	}
 
 	for _, at := range router.Routes {
-		if at.URI == request.URL.String() || at.URI+"/" == request.URL.String() {
+		if strings.Index(request.URL.String(), at.URI) == 0 {
 			for _, method := range at.RequestMethods {
 				if method == request.Method {
 					at.Callback(writer, request)
@@ -38,7 +39,7 @@ func (router *Router) Ignore(uri string) {
 
 func (router *Router) Ignored(uri string) bool {
 	for _, ignore := range router.IgnoreList {
-		if ignore == uri {
+		if strings.Index(uri, ignore) == 0 {
 			return true
 		}
 	}
