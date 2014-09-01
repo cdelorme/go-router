@@ -1,5 +1,5 @@
 
-# go-router
+# go-routing
 
 Basic routing abstraction for the core http package in golang.
 
