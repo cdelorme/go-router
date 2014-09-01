@@ -74,7 +74,7 @@ Or in more detail, like this:
     server := http.Server{
         Addr:           Address,
         MaxHeaderBytes: 1 << 20,
-        Handler:        router,
+        Handler:        &router,
     }
 
 
