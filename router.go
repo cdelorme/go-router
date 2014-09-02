@@ -53,6 +53,7 @@ func (router *Router) NotFound(writer http.ResponseWriter, request *http.Request
 	}
 	message := struct{ Error string }{Error: "No resources available at " + request.URL.String() + " using request method " + request.Method}
 	jsonMessage, _ := json.Marshal(message)
+	writer.WriteHeader(http.StatusNotFound)
 	writer.Header().Add("Content-Type", "application/json")
 	writer.Write(jsonMessage)
 }
