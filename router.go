@@ -8,6 +8,7 @@ import (
 )
 
 type Router struct {
+    Prefix         string
 	Routes         []Route
 	IgnoreList     []string
 	HandleNotFound func(writer http.ResponseWriter, request *http.Request)
@@ -80,7 +81,7 @@ func (router *Router) CreateAndRegisterRoute(
 	uri string,
 	callback func(writer http.ResponseWriter, request *http.Request),
 	methods ...string) {
-	route := router.CreateRoute(uri, callback, methods...)
+	route := router.CreateRoute(router.Prefix + uri, callback, methods...)
 	router.RegisterRoute(route)
 }
 

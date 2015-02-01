@@ -45,6 +45,12 @@ You can create a router like this:
 
     router := routing.Router{}
 
+You may optionally apply a prefix:
+
+    router.Prefix = "/api/v1"
+
+This prefix will be used by the `RegisterController` callback to `CreateAndRegisterRoute`, but will be ignored by `CreateRoute` and `RegisterRoute` (since those are direct access methods).  This should provide some flexibility.
+
 Route registration accepts a path and one or more methods _(1)_:
 
     router.CreateAndRegisterRoute("/path", callbackOne, "GET")
