@@ -8,18 +8,23 @@ It aims at delivering a simple way to setup a server, and route traffic.
 
 ## toolkit alternatives
 
-There are (at least) two decent feature-filled alternatives that include a variety of extras beyond just routing:
+There are a few library-style alternatives:
 
 - [Gorilla](http://www.gorillatoolkit.org/)
 - [gocraft](https://github.com/gocraft/web)
 
+While `Gorilla` and `gocraft` offer excellent features, my own package is nearly a mirror of `HttpRouter`.  The `HttpRouter` package provides exceptional performance, but doesn't give you all the features and controls the others do.
+
 
 ## framework alternatives
 
-There are (at least) two complete web frameworks for go that will not only handle routing but the entire web stack:
+If you'd prefer to be locked into a framework, there are a few out there that do more than routing:
 
 - [martini](http://martini.codegangsta.io/)
+- [gin](://github.com/gin-gonic/gin)
 - [revel](http://revel.github.io/)
+
+_There is also a `gin` made by the makers of `martini` which reloads projects when modified, not to be confused with the `gin` web framework, which is based off `HttpRouter` and has very good performance._
 
 
 ## sales pitch
