@@ -1,4 +1,7 @@
 
+This code is **DEPRECATED**, I won't be working on it anymore.  The [HttpRouter](https://github.com/julienschmidt/httprouter) library works great and has complete code coverage, I highly recommend it.
+
+
 # go-routing
 
 Basic routing abstraction for the core http package in golang.
